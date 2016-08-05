@@ -1,9 +1,7 @@
 #!/bin/bash
 
 # Installing and updating brew and brew-cask
-set -x
 
-which brew
 if [ ! -e "$(which brew)" ] ; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 
 fi

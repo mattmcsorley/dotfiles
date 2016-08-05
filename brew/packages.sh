@@ -64,11 +64,7 @@ brew install vbindiff
 brew install webkit2png
 brew install zopfli
 
-# Remove outdated versions from the cellar.
-brew cleanup
-
 # Quicklook plugins
-brew cask install qlcolorcode
 brew cask install qlstephen
 brew cask install qlmarkdown
 brew cask install quicklook-json
@@ -88,6 +84,19 @@ brew cask install vlc
 brew cask install transmission
 brew cask install caffeine
 brew cask install virtualbox
+brew cask install vagrant
 brew cask install spotify
+brew cask install postman
+brew cask install skype
+brew cask install visual-studio-code
+brew cask install the-unarchiver
+brew cask install spectacle
+brew cask install notebooks
+brew cask install appcleaner
+brew cask install flux
+brew cask install lastpass
+#brew cask install adobe-photoshop-cc
 
+# Remove outdated versions from the cellar.
+brew cleanup && brew cask cleanup
 
