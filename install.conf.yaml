@@ -1,0 +1,13 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.dotfiles: ''
+    ~/.zshrc: zsh/zshrc
+
+- shell:
+  - [chsh -s /bin/zsh, Changing shell to zsh]
+  - [git submodule update --init --recursive, Installing submodules]
