@@ -64,6 +64,8 @@ brew install vbindiff
 brew install webkit2png
 brew install zopfli
 
+brew install packer
+
 # Quicklook plugins
 brew cask install qlstephen
 brew cask install qlmarkdown

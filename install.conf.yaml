@@ -7,7 +7,6 @@
 - link:
     ~/.dotfiles: ''
     ~/.zshrc: zsh/zshrc
-
+    ~/.gitignore_global: git/gitignore_global
 - shell:
-  - [chsh -s /bin/zsh, Changing shell to zsh]
   - [git submodule update --init --recursive, Installing submodules]
