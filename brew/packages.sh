@@ -51,6 +51,7 @@ brew install git-lfs
 brew install imagemagick --with-webp
 brew install lua
 brew install lynx
+brew install macvim
 brew install p7zip
 brew install pigz
 brew install pv
@@ -61,6 +62,7 @@ brew install ssh-copy-id
 brew install testssl
 brew install tree
 brew install vbindiff
+brew install watch
 brew install webkit2png
 brew install zopfli
 
@@ -81,6 +83,7 @@ brew cask install sourcetree
 brew cask install firefox
 brew cask install sublime-text
 brew cask install vlc
+brew cask install java
 brew cask install transmission
 brew cask install caffeine
 brew cask install virtualbox
@@ -95,6 +98,13 @@ brew cask install notebooks
 brew cask install appcleaner
 brew cask install flux
 brew cask install lastpass
+brew cask install sts
+brew cask install gpgtools
+brew cask install dash
+brew cask install boom
+brew cask install textwrangler
+brew cask install xquartz
+brew cask install wireshark
 #brew cask install adobe-photoshop-cc
 
 # Remove outdated versions from the cellar.
