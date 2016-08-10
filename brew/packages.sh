@@ -65,6 +65,7 @@ brew install webkit2png
 brew install zopfli
 
 brew install packer
+brew install maven
 
 # Quicklook plugins
 brew cask install qlstephen
@@ -98,6 +99,7 @@ brew cask install appcleaner
 brew cask install flux
 brew cask install lastpass
 #brew cask install adobe-photoshop-cc
+brew cask install karabiner
 
 # Remove outdated versions from the cellar.
 brew cleanup && brew cask cleanup
