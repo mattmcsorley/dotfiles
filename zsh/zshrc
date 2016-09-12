@@ -1,5 +1,6 @@
 source $HOME/.dotfiles/zsh/antigenrc
 source $HOME/.dotfiles/node/nvmrc
+source $HOME/.dotfiles/functions/functions
 
 export NVM_DIR="/Users/matt/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

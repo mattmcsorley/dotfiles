@@ -1,2 +1,3 @@
 alias gb="./gradlew clean build"
 alias gr="./gradlew bootRun"
+alias gitest="./gradlew itest"
