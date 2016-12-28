@@ -71,6 +71,8 @@ brew install maven
 brew install zsh-completions
 brew install tmux
 brew install m-cli
+brew install no-more-secrets
+brew install csvfix
 
 # Quicklook plugins
 brew cask install qlstephen
@@ -113,6 +115,10 @@ brew cask install xquartz
 brew cask install wireshark
 #brew cask install adobe-photoshop-cc
 brew cask install karabiner
+brew cask install evernote
+brew cask install unetbootin
+brew cask install filezilla
+
 
 # Remove outdated versions from the cellar.
 brew cleanup && brew cask cleanup

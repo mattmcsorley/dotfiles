@@ -9,3 +9,4 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # Sourcing Aliases
 source $HOME/.dotfiles/aliases/gradle
+source $HOME/.dotfiles/aliases/ssh
