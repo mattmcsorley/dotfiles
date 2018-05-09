@@ -26,6 +26,11 @@ function gitio() {
   curl -i https://git.io/ -F "url=${2}" -F "code=${1}";
 }
 
+# Generate a UUIDv4
+function uuid() {
+  python -c $'import uuid;\nprint uuid.uuid4();'
+}
+
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
   local port="${1:-8000}";

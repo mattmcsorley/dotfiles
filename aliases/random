@@ -1,0 +1,5 @@
+alias dc='docker-compose'
+alias watch='watch -d --color '
+
+alias encrypt='gpg --symmetric --cipher-algo AES256'
+alias decrypt='gpg --decrypt'

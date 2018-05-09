@@ -1,0 +1,2 @@
+alias tomcat7start='$CATALINA_HOME/bin/startup.sh'
+alias tomcat7shutdown='$CATALINA_HOME/bin/shutdown.sh'

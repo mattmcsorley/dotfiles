@@ -1,3 +1,4 @@
-alias gb="./gradlew clean build"
+alias gb="./gradlew spotlessApply clean build"
 alias gr="./gradlew bootRun"
 alias gitest="./gradlew itest"
+alias spotbuild="./gradlew spotlessApply clean build"

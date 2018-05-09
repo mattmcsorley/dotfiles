@@ -1,0 +1,3 @@
+alias cleanAtom='rm -rf ~/Library/Caches/com.github.atom.ShipIt'
+alias starttftp='sudo launchctl load -F /System/Library/LaunchDaemons/tftp.plist'
+alias stoptftp='sudo launchctl unload -F /System/Library/LaunchDaemons/tftp.plist'

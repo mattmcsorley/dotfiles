@@ -1,0 +1,2 @@
+alias fishProdDb='mysql --host="fishfry-prod.ccdjxbza5ueo.us-east-1.rds.amazonaws.com" --user="master" --password=ABuGHtswinac'
+alias buildDeployUI='npm run clean:all && npm run build && aws s3 sync build/ s3://admin.fish-fry.org && aws cloudfront create-invalidation --distribution-id E1EJYZC237GT0A --paths /index.html'

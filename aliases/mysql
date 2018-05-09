@@ -1,0 +1,1 @@
+alias fishProdDb='mysql --host="fishfry-prod.ccdjxbza5ueo.us-east-1.rds.amazonaws.com" --user="master" --password=ABuGHtswinac'

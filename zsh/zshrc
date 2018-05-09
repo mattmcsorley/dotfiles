@@ -1,3 +1,4 @@
+screenfetch -E
 source $HOME/.dotfiles/zsh/antigenrc
 source $HOME/.dotfiles/node/nvmrc
 source $HOME/.dotfiles/functions/functions
@@ -7,6 +8,51 @@ export NVM_DIR="${HOME}/.nvm"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+export JAVA_HOME="Users/matt/.sdkman/candidates/java/current"
+export CATALINA_HOME="/Users/matt/tools/apache-tomcat-7.0.73"
+export ANT_HOME="/usr/local/Cellar/ant/1.9.8/libexec"
+export JMETER_HOME="/Users/matt/tools/apache-jmeter-3.1"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/matt/.sdkman"
+[[ -s "/Users/matt/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/matt/.sdkman/bin/sdkman-init.sh"
+export PATH="/usr/local/sbin:$PATH"
+
+# Adding Kafka tools to PATH
+export PATH="$HOME/tools/kafka_2.12-0.10.2.0/bin:$PATH"
+
+# Adding GOPATH bin
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+
 # Sourcing Aliases
 source $HOME/.dotfiles/aliases/gradle
 source $HOME/.dotfiles/aliases/ssh
+source $HOME/.dotfiles/aliases/tomcat
+source $HOME/.dotfiles/aliases/random
+source $HOME/.dotfiles/aliases/osx
+source $HOME/.dotfiles/aliases/kubectl
+source $HOME/.dotfiles/aliases/fishfry
+
+# Kubectl shell completion
+source <(kubectl completion zsh)
+
+#Helm shell completion
+source <(helm completion zsh)
+
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+
+#export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+eval $(thefuck --alias)
+. /usr/local/etc/profile.d/z.sh
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /Users/matt/dev/medCPU/phoenix/advisor-shim/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /Users/matt/dev/medCPU/phoenix/advisor-shim/node_modules/tabtab/.completions/electron-forge.zsh

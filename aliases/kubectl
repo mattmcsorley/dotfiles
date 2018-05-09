@@ -1,0 +1,6 @@
+alias secretart='kubectl create secret docker-registry artifactory --docker-server=medcpu-docker.jfrog.io --docker-username=mmcsorley --docker-password=$(cat $HOME/.kube/secret) --docker-email=mmcsorley@pgh.medcpu.com'
+alias kube="kubectl"
+alias kubemon="kubectl --namespace=monitoring"
+alias kubeall="kubectl --all-namespaces"
+alias kubelog="kubectl --namespace=logging"
+alias kubesys="kubectl --namespace=kube-system"
