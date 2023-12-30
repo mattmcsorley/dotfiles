@@ -37,7 +37,7 @@ function server() {
   sleep 1 && open "http://localhost:${port}/" &
   # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
   # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
-  python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
+  python -m http.server $port
 }
 
 # Create a new directory and enter it
@@ -206,3 +206,155 @@ function weather() {
   curl -s "http://api.wunderground.com/auto/wui/geo/ForecastXML/index.xml?query=${@:-<YOURZIPORLOCATION>}" | perl -ne '/<title>([^<]+)/&&printf "%s: ",$1;/<fcttext>([^<]+)/&&print $1,"\n"';
 }
 
+## Show docker images in kube cluster
+function kube_images() {
+  if [ -z $1 ]; then
+    echo "No context given"
+    return;
+  fi;
+
+  echo "Images for $1"
+  kubectl --context $1 get pods -o jsonpath="{.items[*].spec.containers[*].image}" |\
+  tr -s '[[:space:]]' '\n' |\
+  sort |\
+  uniq -c
+}
+
+
+### Port forwards 
+## Patient State Service
+function port_forward_patient_state() {
+  trap "exit" INT TERM ERR
+  trap "kill 0" EXIT
+  set -o xtrace
+  if [ -z $1 ]; then
+    echo "No context given"
+    return;
+  fi;
+  
+  echo "Forwarding for $1"
+  kubectl --context $1 -n infra port-forward deployments/kafka-connector 19096 29096 22181 &
+#  kubectl --context $1 port-forward deployments/nlp-engine 8000:8000 &
+#  kubectl --context $1 port-forward deployments/diagnostic-classifier 8001:8000 &
+  kubectl --context $1 port-forward deployments/reasoning-engine 8002:7001 &
+  kubectl --context $1 port-forward deployments/investigations-interpreter 8003:8000 &
+#  kubectl --context $1 -n infra port-forward svc/jaeger-collector 14250 14268 14269 9411
+  wait
+}
+
+## Diagnostic Glass API
+function port_forward_diagnostic_glass() {
+  trap "exit" INT TERM ERR
+  trap "kill 0" EXIT
+  if [ -z $1 ]; then
+    echo "No context given"
+    return;
+  fi;
+  if [ -z $2 ]; then
+    echo "No redis node given"
+    return;
+  fi;
+  echo "Forwarding for $1"
+  kubectl --context $1 -n infra port-forward deployments/db-connector 5432 &
+  kubectl --context $1 -n infra port-forward redis-node-$2 6379:6379 &
+  kubectl --context $1 -n infra port-forward deployments/kafka-connector 19096 29096 22181 &
+  kubectl --context $1 port-forward deployments/nba-engine 8011:8000 &
+  kubectl --context $1 -n infra port-forward deployments/paper-proxy-connector 8000:8000 &
+  kubectl --context $1 port-forward deployments/graph-service 8012:8000 &
+  kubectl --context $1 -n infra port-forward svc/jaeger-collector 14250 14268 14269 9411 &
+  kubectl --context $1 -n monitoring port-forward service/prometheus-operated 9093:9090
+  wait
+}
+
+## Console API
+function port_forward_diagnostic_console() {
+  trap "exit" INT TERM ERR
+  trap "kill 0" EXIT
+  if [ -z $1 ]; then
+    echo "No context given"
+    return;
+  fi;
+  echo "Forwarding for $1"
+  kubectl --context $1 -n infra port-forward deployments/db-connector 5432 &
+  kubectl --context $1 port-forward deployments/nlp-engine 8000:8000 &
+  kubectl --context $1 port-forward deployments/nba-engine 8011:8000 &
+  kubectl --context $1 port-forward deployments/diagnostic-classifier 8001:8000 &
+  kubectl --context $1 port-forward deployments/investigations-interpreter 8003:8000 &
+  kubectl --context $1 port-forward deployments/reasoning-engine 8002:7001 &
+  kubectl --context $1 port-forward deployments/graph-service 8012:8000 &
+  kubectl --context $1 port-forward deployments/nlp-performance 8020:8000 &
+  kubectl --context $1 port-forward deployments/diagnostic-glass-api 8083:8080 &
+  kubectl --context $1 port-forward deployments/data-integration-elation-sandbox 8014:8080 &
+  wait
+}
+
+## Console API
+function port_forward_diagnostic_console_local_db() {
+  trap "exit" INT TERM ERR
+  trap "kill 0" EXIT
+  if [ -z $1 ]; then
+    echo "No context given"
+    return;
+  fi;
+  echo "Forwarding for $1"
+  kubectl --context $1 port-forward deployments/nlp-engine 8000:8000 &
+  kubectl --context $1 port-forward deployments/nba-engine 8011:8000 &
+  kubectl --context $1 port-forward deployments/diagnostic-classifier 8001:8000 &
+  kubectl --context $1 port-forward deployments/investigations-interpreter 8003:8000 &
+  kubectl --context $1 port-forward deployments/reasoning-engine 8002:7001 &
+  kubectl --context $1 port-forward deployments/graph-service 8012:8000 &
+  kubectl --context $1 port-forward deployments/nlp-performance 8020:8000 &
+  kubectl --context $1 port-forward deployments/diagnostic-glass-api 8083:8080 &
+  wait
+}
+
+## Console API No DB No nlp-performance
+function port_forward_diagnostic_console_local_db_nlp_perf() {
+  trap "exit" INT TERM ERR
+  trap "kill 0" EXIT
+  if [ -z $1 ]; then
+    echo "No context given"
+    return;
+  fi;
+  docker start nlp-performance
+  docker start local-postgres
+  echo "Forwarding for $1"
+  kubectl --context $1 port-forward deployments/nlp-engine 8000:8000 &
+  kubectl --context $1 port-forward deployments/nba-engine 8011:8000 &
+  kubectl --context $1 port-forward deployments/diagnostic-classifier 8001:8000 &
+  kubectl --context $1 port-forward deployments/investigations-interpreter 8003:8000 &
+  kubectl --context $1 port-forward deployments/reasoning-engine 8002:7001 &
+  kubectl --context $1 port-forward deployments/graph-service 8012:8000 &
+  kubectl --context $1 port-forward deployments/nlp-performance 8020:8000 &
+  kubectl --context $1 port-forward deployments/diagnostic-glass-api 8083:8080 &
+  wait
+}
+
+## Graph Service
+function port_forward_graph_service() {
+  trap "exit" INT TERM ERR
+  trap "kill 0" EXIT
+  if [ -z $1 ]; then
+    echo "No context given"
+    return;
+  fi;
+  echo "Forwarding for $1"
+  kubectl --context $1 -n infra port-forward deployments/db-connector 5432 &
+  kubectl --context $1 -n infra port-forward deployments/janusgraph-testing 8182 &
+  wait
+}
+
+## NLP Performance
+function port_forward_nlp_performance() {
+  trap "exit" INT TERM ERR
+  trap "kill 0" EXIT
+  if [ -z $1 ]; then
+    echo "No context given"
+    return;
+  fi;
+  echo "Forwarding for $1"
+#  kubectl --context $1 -n infra port-forward deployments/db-connector 5432 &
+  kubectl --context $1 port-forward deployments/nlp-engine 8000:8000 &
+  kubectl --context $1 port-forward deployments/reasoning-engine 8002:7001 &
+  wait
+}

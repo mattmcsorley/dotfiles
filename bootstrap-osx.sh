@@ -5,10 +5,10 @@
 echo "Bootstrapping OSX"
 
 # xCode CLT install
-chsh -s /bin/zsh
-xcode-select --install 2> /dev/null
+# chsh -s /bin/zsh
+# xcode-select --install 2> /dev/null
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-${BASEDIR}/osx/osx.sh
-${BASEDIR}/brew/install.sh
+# ${BASEDIR}/osx/osx.sh
+# ${BASEDIR}/brew/install.sh

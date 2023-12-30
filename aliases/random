@@ -3,3 +3,7 @@ alias watch='watch -d --color '
 
 alias encrypt='gpg --symmetric --cipher-algo AES256'
 alias decrypt='gpg --decrypt'
+
+alias tf='terraform'
+
+alias rediscli='export RIPORT=8010 && open /Applications/RedisInsight.app'

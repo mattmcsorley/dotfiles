@@ -9,14 +9,14 @@ DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "${BASEDIR}"
-#git submodule update --init --recursive "${DOTBOT_DIR}"
+git submodule update --init --recursive "${DOTBOT_DIR}"
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
 
 if [ "$(uname)" == "Darwin" ]; then
   echo "Detected Mac OSX platform"
-  # Bootstrap Mac OS X platform 
-  ${BASEDIR}/bootstrap-osx.sh       
+  # Bootstrap Mac OS X platform
+  ${BASEDIR}/bootstrap-osx.sh
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
   echo "Detected GNU/Linux platform"
   # Bootstrap GNU/Linux platform
@@ -26,5 +26,5 @@ elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
   # Do something under Windows NT platform
 fi
 
-${BASEDIR}/node/install.sh
-${BASEDIR}/ruby/install.sh
+#${BASEDIR}/node/install.sh
+#${BASEDIR}/ruby/install.sh

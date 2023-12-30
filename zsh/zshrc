@@ -1,4 +1,7 @@
-screenfetch -E
+HISTSIZE=999999
+HISTFILESIZE=9999999
+SAVEHIST=$HISTSIZE
+DISABLE_MAGIC_FUNCTIONS="true"
 source $HOME/.dotfiles/zsh/antigenrc
 source $HOME/.dotfiles/node/nvmrc
 source $HOME/.dotfiles/functions/functions
@@ -8,23 +11,15 @@ export NVM_DIR="${HOME}/.nvm"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-export JAVA_HOME="Users/matt/.sdkman/candidates/java/current"
+export JAVA_HOME="/Users/matt/.sdkman/candidates/java/current"
 export CATALINA_HOME="/Users/matt/tools/apache-tomcat-7.0.73"
 export ANT_HOME="/usr/local/Cellar/ant/1.9.8/libexec"
 export JMETER_HOME="/Users/matt/tools/apache-jmeter-3.1"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/matt/.sdkman"
-[[ -s "/Users/matt/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/matt/.sdkman/bin/sdkman-init.sh"
 export PATH="/usr/local/sbin:$PATH"
-
-# Adding Kafka tools to PATH
-export PATH="$HOME/tools/kafka_2.12-0.10.2.0/bin:$PATH"
-
-# Adding GOPATH bin
-export GOPATH="$HOME/go"
-export PATH="$GOPATH/bin:$PATH"
-
+export PATH="/Users/matt/tools:$PATH"
 # Sourcing Aliases
 source $HOME/.dotfiles/aliases/gradle
 source $HOME/.dotfiles/aliases/ssh
@@ -34,25 +29,55 @@ source $HOME/.dotfiles/aliases/osx
 source $HOME/.dotfiles/aliases/kubectl
 source $HOME/.dotfiles/aliases/fishfry
 
-# Kubectl shell completion
-source <(kubectl completion zsh)
-
-#Helm shell completion
-source <(helm completion zsh)
-
 export PATH="/usr/local/opt/openssl/bin:$PATH"
-export PATH="/usr/local/opt/openssl/bin:$PATH"
-
-#export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-eval $(thefuck --alias)
-. /usr/local/etc/profile.d/z.sh
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
 
-# tabtab source for electron-forge package
-# uninstall by removing these lines or running `tabtab uninstall electron-forge`
-[[ -f /Users/matt/dev/medCPU/phoenix/advisor-shim/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /Users/matt/dev/medCPU/phoenix/advisor-shim/node_modules/tabtab/.completions/electron-forge.zsh
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+. /usr/local/etc/profile.d/z.sh
+
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
+
+#export PATH="$PATH:/Users/matt/tools/istio-1.11.3/bin"
+export PATH="$PATH:/Users/matt/tools/istio-1.15.0/bin"
+
+export PATH="$PATH:/Users/matt/tools/kafka_2.13-3.0.0/bin"
+
+# Kubectl shell completion
+source <(kubectl completion zsh)
+
+
+eval $(thefuck --alias)
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+
+export PATH="/Users/matt/.local/bin:$PATH"
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export EDITOR=vim
+autoload -U compinit; compinit
+source <(stern --completion=zsh)
+export PATH="$PATH:/Users/matt/dev/recoverx/infrastructure/charts/istio/istio-1.18.0/bin"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/matt/tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/matt/tools/google-cloud-sdk/path.zsh.inc'; fi
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/matt/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/matt/tools/google-cloud-sdk/completion.zsh.inc'; fi
